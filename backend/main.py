@@ -5,11 +5,13 @@ from starlette.routing import Route
 import asyncpg
 import json
 
+# Connection to DB
 DATABASE_URL = 'postgresql://user:password@localhost/dbname'
 
 async def database_connect():
     return await asyncpg.connect(dsn=DATABASE_URL)
 
+#Code to get and add the documents through request module
 async def get_documents(request: Request):
     conn = await database_connect()
     rows = await conn.fetch('SELECT * FROM documents ORDER BY position')
@@ -25,6 +27,7 @@ async def add_document(request: Request):
     await conn.close()
     return JSONResponse({'status': 'success'})
 
+#Path to be used in API/ traversing
 app = Starlette(debug=True, routes=[
     Route('/documents', get_documents, methods=['GET']),
     Route('/documents', add_document, methods=['POST']),
