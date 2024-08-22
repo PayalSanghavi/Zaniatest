@@ -11,7 +11,18 @@ const Card = ({ card, index, moveCard, onClick }) => {
       isDragging: !!monitor.isDragging(),
     }),
   });
+useEffect(() => {
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      handleOverlayClose();
+    }
+  };
 
+  window.addEventListener('keydown', handleEsc);
+  return () => {
+    window.removeEventListener('keydown', handleEsc);
+  };
+}, []);
   return (
     <div
       ref={drag}
@@ -100,5 +111,6 @@ const CardGrid = () => {
     </div>
   );
 };
+
 
 export default CardGrid;
