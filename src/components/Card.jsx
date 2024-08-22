@@ -1,3 +1,5 @@
+//Card Loading, and click events with spinner.
+
 import React, { useState } from 'react';
 import Spinner from './Spinner'; // Create a simple spinner component
 
